@@ -4,7 +4,8 @@
   "description": "Extensible Access Control System. MQTT message bus service.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,18 @@
   "bugs": {
     "url": "https://github.com/chemicstry/eacs-message-bus/issues"
   },
-  "homepage": "https://github.com/chemicstry/eacs-message-bus#readme"
+  "homepage": "https://github.com/chemicstry/eacs-message-bus#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.4"
+  },
+  "dependencies": {
+    "aedes": "^0.33.0",
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^5.0.5",
+    "eacs-socket": "^1.0.1",
+    "modular-json-rpc": "^1.0.6",
+    "redis": "^2.8.0",
+    "winston": "^2.4.2",
+    "ws": "^5.1.1"
+  }
 }
