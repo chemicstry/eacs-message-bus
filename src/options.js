@@ -14,6 +14,18 @@ module.exports = [
         description: 'Host (IP) of websocket'
     },
     {
+        name: 'tls_cert',
+        type: String,
+        defaultValue: 'tls_cert.pem',
+        description: 'TLS certificate file (leave blank to disable TLS)'
+    },
+    {
+        name: 'tls_key',
+        type: String,
+        defaultValue: 'tls_key.pem',
+        description: 'TLS key file'
+    },
+    {
         name: 'mqttport',
         type: Number,
         defaultValue: 1883,

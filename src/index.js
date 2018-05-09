@@ -9,6 +9,7 @@ var aedes = require('aedes');
 var net = require('net');
 var path = require('path');
 var util = require('util');
+var https = require('https');
 
 // Options
 const options = commandLineArgs(optionDefinitions);
@@ -42,11 +43,28 @@ brokersrv.listen(options.mqttport, function() {
 const jwtPublicKey = fs.readFileSync(options.jwtPublicKey, "utf8");
 
 // Setup EACSSocket (websockets with JWT auth)
-const socket = new EACSSocket.EACSSocket({
-    host: options.host,
-    port: options.port,
-    jwtPubKey: jwtPublicKey
-});
+if (options.tls_cert.length)
+{
+    // With TLS
+    var server = https.createServer({
+        cert: fs.readFileSync(options.tls_cert),
+        key: fs.readFileSync(options.tls_key)
+    }).listen(options.port, options.host);
+
+    var socket = new EACSSocket.EACSSocket({
+        jwtPubKey: jwtPublicKey,
+        server
+    });
+}
+else
+{
+    // Without TLS
+    var socket = new EACSSocket.EACSSocket({
+        host: options.host,
+        port: options.port,
+        jwtPubKey: jwtPublicKey
+    });
+}
 
 socket.on('connection', (ws, req) => {
     let token = req.token;
