@@ -1,0 +1,25 @@
+language: node_js
+
+node_js:
+- stable
+
+install:
+- npm install
+
+script: true
+
+after_success:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export REPO=chemicstry/eacs-message-bus
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
+  ; fi`
+- docker build -f Dockerfile -t $REPO:$COMMIT .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO
+
+env:
+  global:
+  - secure: mvmcZoiR9Ld5N4xkx73kjg5WwP9bLZchBk1Jlj/N6sLejIRc3cSiH8st7pgZugib+b/AemYBmZfxS2NkfcNeiyGonFVsgcpa7L+J861x8LDc85ulyexSq9Wd+jua7IxOIErwXBPeIxid9Q/itt+nhcMeLbBMx/7im10XOXuPAj/oClVNQ0moG1mrB6VaozpYSNp9foDwqPV/nJB4nDFe8QQQwj5ZD1jsrNxOHt8vZtUr58+KLc8OJSz4q2vZTPqgSw82bqMouNsa/ozKdmWIb7S21AZHwuV+cVzXTR9A6FRg0BaFHbGyF52XFoEepkdLqBww1dihI35vz66KsaLBwkvnrFiijqRB60pX+E9gslU58zmntuLhj2FSajOnibtY0smEyCnVEean9Vj3iucPvkNK2y0GajVLam66PPO8amriO7vqymWG7GOnNB7oV1+9NKjs55VOctyUtvjwxL019mUSIfcdtDeTC9iSlK0UZW79pty2NmcHbei+ihpvLmsfBnIxkXJb4BfMPIVzwoBfLGKa9WohYYmvsfrBRXwL8vYweufuVKr2MyseCTbbPFQ03tb9OA2aOdcitMVE35olelCCgqpg12+2QYCdEhqg9uwbnU94JvqQY48HjP2Lt+mLddDzF/25RIOZj4MXzZEL+gcLqZtao5Wpb3iOfDA2E8A=
+  - secure: fF1hSkJzHgGZsvkXN8KBC8v+aXoSCABSOJxtARec+B5j5VwP7b6aPl5di2zmU7AdRQYj34jSujoRczsCn7Ahof+Ww6XDBoPOPIOoC5QuDEwpQzPLOhXGSm6PZd4T/iQAwg7cWiERd3bYiyrVifknxR8tmRJgx9mimGE6TZ98oDPJnY735JBqoBFGL6yyMHgeT8EfOYF2cQd0Re1ueGxh3Ocre9c5fpVi53bU/o9czQzXkE8E4ljK0DWVG5Xews43h2kcdsgvToxuT+qbrMPalfoDf90vxTymzlRmZ8BG2az3WogqU7zof0MTFJJzT9Ycxw9rX+28vGk7hn/eN7OWrRCWXH9TsDB+EaCcvIllyDt7LWDBkR7JBn5j2obgI4nmg3RUKnoC+O/P/dFmsYFV7h1DKCbr3UDzELxb63B+LEYRPK5wazTfCasFzEjPUgEkLfJ8mfCfhpR8QyXRs/YW+NMzOHPvlOH6gjw48DhMaAuJRoN6wVViEnI6eTA057ByKPs21AUI2JbAwyTruNc9SWo2df/2n3kaehLNjQ9QanUkmbwDrtS1u3fX0WEsn9+aQOxQLfyqKF+JfEYuHnEaCn7vToMvQT8AL/pmgEtZ41xkmVFUr2vRnqOTMM8CMHQR56sngu5ao45aBguDm7kV9laCMPqLDFasH4qA6+Jcmg0=
+  - COMMIT=${TRAVIS_COMMIT::8}
