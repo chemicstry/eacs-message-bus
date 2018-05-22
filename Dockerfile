@@ -9,7 +9,7 @@ COPY . /app
 RUN npm install
 
 # Run
-CMD node src/index.js
+ENTRYPOINT ["node", "src/index.js"]
 
 # Expose port 3000
 EXPOSE 3000
