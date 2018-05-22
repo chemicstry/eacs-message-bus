@@ -3,7 +3,7 @@ module.exports = [
         name: 'port',
         alias: 'p',
         type: Number,
-        defaultValue: 3002,
+        defaultValue: 3000,
         description: 'Port number of websocket'
     },
     {
