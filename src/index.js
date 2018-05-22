@@ -19,8 +19,8 @@ if (options.help)
 {
     const sections = [
         {
-            header: 'eacs-user-auth',
-            content: 'Extensible Access Control System. User Authentication Module.'
+            header: 'eacs-message-bus',
+            content: 'Extensible Access Control System. MQTT Message Bus Service.'
         },
         {
             header: 'Options',
