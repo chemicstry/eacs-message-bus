@@ -1,3 +1,5 @@
+# Outdated. Replaced by AIO package [eacs-server](https://github.com/chemicstry/eacs-server)
+
 [![Build Status](https://travis-ci.org/chemicstry/eacs-message-bus.svg?branch=master)](https://travis-ci.org/chemicstry/eacs-message-bus)
 
 # eacs-message-bus
